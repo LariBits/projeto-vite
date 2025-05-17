@@ -1,24 +1,19 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+  fetch('https://run.mocky.io/v3/9a55f81d-d4e5-48ad-9c09-d037a7ba0b0c')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.numeros);
 
-setupCounter(document.querySelector('#counter'))
+        let index = 0; 
+        const interval = setInterval(() => {
+          if (index < data.numeros.length) {
+          document.body.innerHTML = `<p class="numero">${data.numeros[index].id}</p>`;
+            index++;
+            
+          } else {
+            clearInterval(interval);
+            location.reload();
+          }
+        }, 1000);
+      });
